@@ -16,7 +16,7 @@ def bicubic(img, factor):
 
 def subSample(img, factor):
     (newWidth, newHeight) = new_size_by_factor(img, factor)
-    subsampled_img = cv2.resize(img, (newWidth, newHeight), interpolation=cv2.INTER_AREA)
+    subsampled_img = cv2.resize(img, (newWidth, newHeight), interpolation=cv2.INTER_NEAREST)
     return subsampled_img
 
 def convValid(img, ksize):
@@ -55,7 +55,7 @@ def downscale_channel(img, factor, patch_size):
 
     D = cv2.divide(cv2.subtract(cv2.add(M, cv2.multiply(R, L)), T), N)
     D = np.nan_to_num(D, 0)
-    print("D="+str(D.shape)+"="+str(D))
+    # print("D="+str(D.shape)+"="+str(D))
 
     return D
 
@@ -99,9 +99,4 @@ if __name__ == '__main__':
 
     downscaled_img = downscale(image, factor, patch_size)
     print("downscaled_img shape = " + str(downscaled_img.shape))
-    cv2.imwrite('./output/downscaled.jpeg', downscaled_img)
-
-
-
-    
-
+    cv2.imwrite('./output/perceptual.jpeg', downscaled_img)
